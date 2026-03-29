@@ -4,17 +4,19 @@ import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
 import ListPage from './pages/ListPage';
 
-export default function App() {
+function App() {
+  // 1. Hardcode the start page to 'landing'
   const [currentPage, setCurrentPage] = useState('landing');
 
-  // Centralized Navigation Function
-  const navigate = (page) => {
-    console.log("Navigating to:", page); // Debugging helper
-    setCurrentPage(page);
+  // 2. Navigation function that we will pass to other pages
+  const navigate = (pageName) => {
+    console.log("Moving to:", pageName); // This helps us debug in the browser console
+    setCurrentPage(pageName);
   };
 
+  // 3. Simple Conditional Rendering
   return (
-    <div className="App bg-slate-900 min-h-screen">
+    <div className="App">
       {currentPage === 'landing' && (
         <LandingPage onStart={() => navigate('login')} />
       )}
@@ -37,3 +39,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;
