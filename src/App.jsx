@@ -4,32 +4,36 @@ import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
 import ListPage from './pages/ListPage';
 
-function App() {
+export default function App() {
   const [currentPage, setCurrentPage] = useState('landing');
 
+  // Centralized Navigation Function
+  const navigate = (page) => {
+    console.log("Navigating to:", page); // Debugging helper
+    setCurrentPage(page);
+  };
+
   return (
-    <div className="App bg-slate-800 min-h-screen">
+    <div className="App bg-slate-900 min-h-screen">
       {currentPage === 'landing' && (
-        <LandingPage onStart={() => setCurrentPage('login')} />
+        <LandingPage onStart={() => navigate('login')} />
       )}
       
       {currentPage === 'login' && (
         <LoginPage 
-          onLogin={() => setCurrentPage('dashboard')} 
-          onBack={() => setCurrentPage('landing')}
-          onGuest={() => setCurrentPage('dashboard')}
+          onLogin={() => navigate('dashboard')} 
+          onBack={() => navigate('landing')}
+          onGuest={() => navigate('dashboard')}
         />
       )}
 
       {currentPage === 'dashboard' && (
-        <Dashboard onNavigate={setCurrentPage} />
+        <Dashboard onNavigate={navigate} />
       )}
 
       {currentPage === 'list' && (
-        <ListPage onNavigate={setCurrentPage} />
+        <ListPage onNavigate={navigate} />
       )}
     </div>
   );
 }
-
-export default App;
